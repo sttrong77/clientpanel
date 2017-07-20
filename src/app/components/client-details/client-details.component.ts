@@ -37,8 +37,22 @@ export class ClientDetailsComponent implements OnInit {
         this.hasBalance = true
       }
       this.client = client
-      console.log(this.client)
     });
+  }
+
+  updatedBalance(id: string){
+    //Update client
+    this.clientService.updateClient(this.id, this.client)
+    this.flashMessagesService.show('Balanced atualizado com sucesso', {cssClass: 'alert-success', timeout: 4000})
+    this.router.navigate(['/client/'+this.id])
+  }
+
+  oneDeleteClick(){
+    if(confirm("Deseja excluir esse cliente?")){
+      this.clientService.deleteClient(this.id)
+      this.flashMessagesService.show('Cliente atualizado com sucesso', {cssClass: 'alert-success', timeout: 4000})
+      this.router.navigate(['/'])
+    }
   }
 
 }
