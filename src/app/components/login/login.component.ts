@@ -10,9 +10,28 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  email: string
+  password: string
+
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    public flashMessagesService:FlashMessagesService
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmit(){
+    this.authService.login(this.email, this.password)
+      .then((res)=> {
+        this.flashMessagesService.show('Logadao com sucesso', {cssClass: 'alert-success', timeout: 4000})
+        this.router.navigate(['/'])
+      })
+      .catch((err) => {
+        this.flashMessagesService.show(err.message, {cssClass: 'alert-danger', timeout: 4000})
+        this.router.navigate(['/login'])
+      })
   }
 
 }
