@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service'
 
 import 'rxjs/add/operator/map'
 
+import { SettingsService } from '../../services/settings.service'
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -19,7 +21,11 @@ export class NavbarComponent implements OnInit {
   loggedInUser: string
   showRegister: boolean
 
-  constructor(private authService: AuthService, private router: Router, private flashMessagesService: FlashMessagesService) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private flashMessagesService: FlashMessagesService,
+    private settingsService: SettingsService) { }
 
   ngOnInit() {
     this.authService.getAuth().subscribe(auth => {
@@ -29,6 +35,7 @@ export class NavbarComponent implements OnInit {
       } else {
         this.isLoggedIn = false
       }
+      this.showRegister = this.settingsService.getSettings().allowRegistration
     })
   }
 

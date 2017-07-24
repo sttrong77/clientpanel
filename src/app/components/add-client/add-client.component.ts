@@ -8,6 +8,8 @@ import { Client } from '../../models/Client'
 
 import { ClientService } from '../../services/client.service'
 
+import { SettingsService } from '../../services/settings.service'
+
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
@@ -28,9 +30,11 @@ export class AddClientComponent implements OnInit {
   constructor(
     public flashMessagesService: FlashMessagesService, 
     public router: Router, 
-    public clientService: ClientService) { }
+    public clientService: ClientService,
+    public settingsService: SettingsService) { }
 
   ngOnInit() {
+    this.disableBalanceOnAdd = this.settingsService.getSettings().disableBalanceOnAdd
   }
 
   onSubmit({value, valid}: {value: Client, valid: boolean}){

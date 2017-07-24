@@ -8,6 +8,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router'
 
 import { Client } from '../../models/Client'
 
+import { SettingsService } from '../../services/settings.service'
+
 @Component({
   selector: 'app-edit-client',
   templateUrl: './edit-client.component.html',
@@ -30,7 +32,8 @@ export class EditClientComponent implements OnInit {
     public clientService: ClientService,
     public router: Router,
     public route: ActivatedRoute,
-    public flashMessagesService:FlashMessagesService) { }
+    public flashMessagesService:FlashMessagesService,
+    public settingsService: SettingsService) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id']
@@ -40,6 +43,8 @@ export class EditClientComponent implements OnInit {
       this.client = client
       console.log(client)
     });
+
+    this.disableBalanceOnEdit = this.settingsService.getSettings().disableBalanceOnEdit
   }
 
   onSubmit({value, valid}: {value: Client, valid: boolean}){
