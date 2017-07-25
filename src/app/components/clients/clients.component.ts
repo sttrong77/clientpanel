@@ -24,12 +24,14 @@ export class ClientsComponent implements OnInit {
   }
 
   getTotalOwed(){
-    let total = 0
+    let total: number = 0
     for(let i = 0; i < this.clients.length; i++){
+      console.log(this.clients[i].balance)
       total += this.clients[i].balance //soma todos os itens da balanca
     }
     this.totalOwed = total
-    console.log(this.totalOwed)
+    total = 0
+    //console.log(this.totalOwed)
   }
 
 }
